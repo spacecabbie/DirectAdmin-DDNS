@@ -4,9 +4,14 @@ include 'httpsocket.php';
 
 if (file_exists("credentials.json")) {
     $credentials = json_decode(file_get_contents("credentials.json"), true);
+	if ($credentials === null) {
+		echo "Failed to Decode Json, Error = ", json_last_error_msg(), "\n";
+		exit();
+	}
 } else {
     exit("No credentials.json found! aborting...");
 }
+
 $server_login = $credentials['username'];
 $server_pass = $credentials['password'];
 $server_host = $credentials['hostname'];
